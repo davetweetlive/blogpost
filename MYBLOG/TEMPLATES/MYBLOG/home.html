@@ -1,0 +1,30 @@
+{% extends 'baseint.html' %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    {% block head %}
+    {% endblock %}
+  </head>
+  <body>
+    {% block body %}
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">Forum 2k</h1>
+        <p class="lead">An online forum for writers and columnists!</p>
+      </div>
+    </div>
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        {% for row in blogposts %}
+        <div class="col-md-4">
+          <h2>{{row.title}}</h2>
+          <p>{{row.article}}</p>
+          <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+        </div>
+        {%endfor%}
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>
