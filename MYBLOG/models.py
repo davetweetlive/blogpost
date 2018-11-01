@@ -17,6 +17,7 @@ class Profile(models.Model):
 class Post(models.Model):
     author          = models.ForeignKey(Profile, on_delete = models.CASCADE)
     title           = models.CharField(max_length = 50)
+    about           = models.CharField(max_length = 100)
     article         = models.TextField()
     publish_date    = models.DateTimeField(null = True)
     modified_date   = models.DateTimeField(null = True)
