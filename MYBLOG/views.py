@@ -12,9 +12,14 @@ def index_login_signup(request):
     context = {}
     if request.method == 'POST':
         if request.POST.get('login-button') == 'loginTo':
+            # call login function
             return user_login(request)
         elif request.POST.get('signup-button') == 'signUpTo':
+            # call register function
             return registration(request)
+        elif request.POST.get('search_box'):
+            # call search functon
+            pass
     else:
         return render(request, 'MYBLOG/index.html', context)
 
