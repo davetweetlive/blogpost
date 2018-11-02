@@ -92,8 +92,8 @@
 				<a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1">Sign up</a>
 				<ul class="dropdown-menu form-wrapper">
 					<li>
-						<form action="/examples/actions/confirmation.php" method="post">
-							<p class="hint-text">Fill in this form to create your account!</p>
+						<form action="" method="post">
+							<!-- <p class="hint-text">Fill in this form to create your account!</p>
 							<div class="form-group">
 								<input type="text" class="form-control" placeholder="Username" required="required">
 							</div>
@@ -105,7 +105,21 @@
 							</div>
 							<div class="form-group">
 								<label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms &amp; Conditions</a></label>
-							</div>
+							</div> -->
+							{% csrf_token %}
+							{{ form.as_p }}
+							 <!-- {% for field in form %}
+							 <p>
+									 {{ field.label_tag }}<br>
+									 {{ field }}
+									 {% if field.help_text %}
+									 <small style="color: grey">{{ field.help_text }}</small>
+									 {% endif %}
+									 {% for error in field.errors %}
+									 <p style="color: red">{{ error }}</p>
+									 {% endfor %}
+							 </p>
+							 {% endfor %} -->
 							<button type="submit" class="btn btn-primary btn-block" value="signUpTo" name="signup-button">Sign up</button>
 							<!-- <input type="submit" class="btn btn-primary btn-block" value="Sign up"> -->
 						</form>

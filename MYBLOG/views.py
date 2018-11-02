@@ -11,16 +11,19 @@ from datetime import datetime
 def index_login_signup(request):
     context = {}
     if request.method == 'POST':
-        if request.POST.get('login-button') == 'loginTo':
-            # call login function
-            return user_login(request)
-        elif request.POST.get('signup-button') == 'signUpTo':
+        if request.POST.get('signup-button') == 'signUpTo':
             # call register function
             return registration(request)
+
+        elif request.POST.get('login-button') == 'loginTo':
+            # call login function
+            return user_login(request)
+
         elif request.POST.get('search_box'):
             # call search functon
             pass
     else:
+        context['form'] = UserCreationForm()
         return render(request, 'MYBLOG/index.html', context)
 
 
@@ -45,15 +48,19 @@ the register function or it calls the login function"""
 #     return render(request, 'index.html', {'form': form})
 
 def registration(request):
-    form = UserCreationForm(request.POST)
-    if form.is_valid():
-        form.save()
-        username = form.cleaned_data.get('username')
-        password = form.cleaned_data.get('password')
-        user = authenticate(username = username, password = password)
-        login(request, user)
-        user_session = request.session['username'] = request.POST.get('username')
-        return HttpResponseRedirect(reverse('login_function'))
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return HttpResponseRedirect(reverse('login_function'))
+    else:
+        form = UserCreationForm()
+    return render(request, 'index.html', {'form': form})
+
 
 """Declaration of login function which is called in signup function if the value of submit button is not 'signup_to then'"""
 def user_login(request):
