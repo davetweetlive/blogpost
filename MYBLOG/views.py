@@ -1,6 +1,5 @@
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -31,6 +30,23 @@ def index_login_signup(request):
 
 """The signup() functon checks whether the method is post or not if yes it checks for the value is signup if yes it calls
 the register function or it calls the login function"""
+# def signup(request):
+#     if request.method == 'POST':
+#         if request.POST.get('signup-click') == 'signup_to':
+#             form = UserCreationForm(request.POST)
+#             if form.is_valid():
+#                 form.save()
+#                 username = form.cleaned_data.get('username')
+#                 raw_password = form.cleaned_data.get('password1')
+#                 user = authenticate(username=username, password=raw_password)
+#                 login(request, user)
+#                 return redirect('hme')
+#         else:
+#             return _login(request)
+#     else:
+#         form = UserCreationForm()
+#     return render(request, 'index.html', {'form': form})
+
 def registration(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -74,8 +90,7 @@ def visit_again(request):
         logout(request)
         return HttpResponseRedirect(reverse('index_login_signup_function'))
 
-"""post a blog function is used to post an article to the database which takes data from html page and adds it to the datebase incase method
-    is post"""
+"""post a blog function is used to post an article to the database"""
 def post_blog(request):
     context = {}
     active_user = request.user
@@ -95,14 +110,4 @@ def post_blog(request):
 """View Profile Section"""
 def view_profile(request):
     context = {}
-    active_user = request.user
-    users_row = User.objects.get(username = active_user)
-    fname = 'Irak'
-    lname = 'Rigia'
-    emails = 'tarakr@gmail.com'
-    users_row.first_name = fname
-    users_row.last_name = lname
-    users_row.email = emails
-    users_row.save()
-    print(users_row)
     return render(request, 'MYBLOG/profile.html', context)

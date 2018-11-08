@@ -89,7 +89,7 @@
 				</ul>
 			</li>
 			<li class="nav-item">
-				<a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1" id="signup">Sign up</a>
+				<a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1">Sign up</a>
 				<ul class="dropdown-menu form-wrapper">
 					<li>
 						<form action="" method="post">
@@ -108,7 +108,20 @@
 							</div> -->
 							{% csrf_token %}
 							{{ form.as_p }}
+							 <!-- {% for field in form %}
+							 <p>
+									 {{ field.label_tag }}<br>
+									 {{ field }}
+									 {% if field.help_text %}
+									 <small style="color: grey">{{ field.help_text }}</small>
+									 {% endif %}
+									 {% for error in field.errors %}
+									 <p style="color: red">{{ error }}</p>
+									 {% endfor %}
+							 </p>
+							 {% endfor %} -->
 							<button type="submit" class="btn btn-primary btn-block" value="signUpTo" name="signup-button">Sign up</button>
+							<!-- <input type="submit" class="btn btn-primary btn-block" value="Sign up"> -->
 						</form>
 					</li>
 				</ul>
@@ -119,16 +132,4 @@
 {% block body %}
 {% endblock %}
 </body>
-<script type="text/javascript">
-// 1. get all Signup instructions and disable remove when document loads
-let instructions = document.getElementsByTagName('small');
-document.querySelector('#signup').addEventListener('click', removeInstructions);
-
-function removeInstructions(){
-	for(let i=0; i<instructions.length; i++){
-			instructions[i].style.display = 'none'
-	}
-
-}
-</script>
 </html>
