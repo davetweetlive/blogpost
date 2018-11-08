@@ -30,23 +30,6 @@ def index_login_signup(request):
 
 """The signup() functon checks whether the method is post or not if yes it checks for the value is signup if yes it calls
 the register function or it calls the login function"""
-# def signup(request):
-#     if request.method == 'POST':
-#         if request.POST.get('signup-click') == 'signup_to':
-#             form = UserCreationForm(request.POST)
-#             if form.is_valid():
-#                 form.save()
-#                 username = form.cleaned_data.get('username')
-#                 raw_password = form.cleaned_data.get('password1')
-#                 user = authenticate(username=username, password=raw_password)
-#                 login(request, user)
-#                 return redirect('hme')
-#         else:
-#             return _login(request)
-#     else:
-#         form = UserCreationForm()
-#     return render(request, 'index.html', {'form': form})
-
 def registration(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -59,7 +42,7 @@ def registration(request):
             return HttpResponseRedirect(reverse('login_function'))
     else:
         form = UserCreationForm()
-    return render(request, 'index.html', {'form': form})
+    return render(request, 'MYBLOG/profile.html', {'form': form})
 
 
 """Declaration of login function which is called in signup function if the value of submit button is not 'signup_to then'"""
