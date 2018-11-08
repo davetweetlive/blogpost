@@ -27,28 +27,42 @@
                   </div>
                   <div class="col-md-6">
                       <div class="profile-head">
-                        <table class="table">
-                          <tr scope="row">
-                            <td>Username</td>
-                            <td> <input type="text" name="" value=""> </td>
-                          </tr>
-                          <tr scope="row">
-                            <td>Full Name</td>
-                            <td> <input type="text" name="" value=""> </td>
-                          </tr>
-                          <tr scope="row">
-                            <td>Email</td>
-                            <td> <input type="text" name="" value=""> </td>
-                          </tr>
-                          <tr scope="row">
-                            <td>Profession</td>
-                            <td> <input type="text" name="" value=""> </td>
-                          </tr>
-                          <tr scope="row">
-                            <td>Gender</td>
-                            <td> <input type="text" name="" value=""> </td>
-                          </tr>
-                        </table>
+                        <form class="" method="post">
+                          {% csrf_token %}
+                          <table class="table">
+                            <!-- <tr scope="row">
+                              <td>Username</td>
+                              <td> <input type="text" name="username" value=""> </td>
+                            </tr> -->
+                            <tr scope="row">
+                              <td>First Name</td>
+                              <td> <input type="text" name="fname" value=""> </td>
+                            </tr>
+                            <tr scope="row">
+                              <td>Last Name</td>
+                              <td> <input type="text" name="lname" value=""> </td>
+                            </tr>
+                            <tr scope="row">
+                              <td>Email</td>
+                              <td> <input type="text" name="emailId" value=""> </td>
+                            </tr>
+                            <tr scope="row">
+                              <td>Profession</td>
+                              <td> <input type="text" name="job" value=""> </td>
+                            </tr>
+                            <tr scope="row">
+                              <td>Gender</td>
+                              <td> <select class="" name="gender">
+                                <option value="MALE">Male</option>
+                                <option value="FEMALE">Female</option>
+                              </select></td>
+                            </tr>
+                            <tr scope="row">
+                              <td></td>
+                              <td> <button type="submit" name="button">Update</button> </td>
+                            </tr>
+                          </table>
+                        </form>
                       </div>
                   </div>
                   <div class="col-md-2">
