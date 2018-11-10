@@ -108,10 +108,14 @@ def view_profile(request):
         user_row.email = email_id
         user_row.save()
 
-        profile_row = Profile(username = username, profession = profession, gender = sex)
+        # try:
+            # profile_row = Profile(username, profession = profession, gender = sex)
+        profile_row = Profile.objects.create(username = username, profession = profession,   gender = sex)
         print(profile_row)
+        # except:
+        #     print('Exception happened')
         # add_to_user_model =
-        add_to_Profile_model = Profile(username = username)
+        # add_to_Profile_model = Profile(username = username)
         print(username, first_name, last_name, email_id, profession, sex)
 
     return render(request, 'MYBLOG/profile.html', context)
