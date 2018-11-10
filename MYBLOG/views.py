@@ -65,6 +65,8 @@ def user_login(request):
 def welcome_home(request):
     context = {}
     context['user']= request.user
+    blogs = display_blog(request)
+    context.update(blogs)
     return render(request, 'MYBLOG/home.html', context)
 
 
@@ -94,7 +96,7 @@ def post_blog(request):
 """View Profile Section"""
 def view_profile(request):
     context = {}
-    username = request.user
+    logged_in_user = request.user
     if request.method == 'POST':
         first_name = request.POST.get('fname')
         last_name = request.POST.get('lname')
@@ -102,20 +104,25 @@ def view_profile(request):
         profession = request.POST.get('job')
         sex = request.POST.get('gender')
 
-        user_row = User.objects.get(username = username)
+        user_row = User.objects.get(username = logged_in_user)
         user_row.first_name = first_name
         user_row.last_name = last_name
         user_row.email = email_id
         user_row.save()
 
-        # try:
-            # profile_row = Profile(username, profession = profession, gender = sex)
-        profile_row = Profile.objects.create(username = username, profession = profession,   gender = sex)
-        print(profile_row)
-        # except:
-        #     print('Exception happened')
-        # add_to_user_model =
-        # add_to_Profile_model = Profile(username = username)
-        print(username, first_name, last_name, email_id, profession, sex)
+        try:
+            profile_row = Profile.objects.get(username = logged_in_user)
+            print(profile_row)
+        except:
+            profile_row = Profile.objects.create(username = logged_in_user, profession = profession,   gender = sex)
+            print(profile_row)
+            print(logged_in_user, first_name, last_name, email_id, profession, sex)
 
     return render(request, 'MYBLOG/profile.html', context)
+
+
+"""The function called display blog return blogs to the welcome home function where all the blogs posted by authors will be published """
+def display_blog(request):
+    context = {}
+    all_blogs = Post.objects.all()
+    return {'post_row': all_blogs}
