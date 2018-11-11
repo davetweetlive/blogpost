@@ -1,10 +1,12 @@
+"""Imported functions, packages, methods as per requirements"""
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.contrib.auth.models import User
 from . models import Profile, Post
+from django.urls import reverse
 from datetime import datetime
 
 """ index_login_signup function renders the index page and checks which submit (Login/Signup) is clicked if login clicked it calls login
@@ -13,19 +15,20 @@ def index_login_signup(request):
     context = {}
     if request.method == 'POST':
         if request.POST.get('signup-button') == 'signUpTo':
-            # call register function
             return registration(request)
 
         elif request.POST.get('login-button') == 'loginTo':
-            # call login function
             return user_login(request)
 
         elif request.POST.get('search_box'):
             # call search functon
             pass
     else:
-        context['form'] = UserCreationForm()
-        return render(request, 'MYBLOG/index.html', context)
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('login_function'))
+        else:
+            context['form'] = UserCreationForm()
+            return render(request, 'MYBLOG/index.html', context)
 
 
 
@@ -62,6 +65,7 @@ def user_login(request):
 
 
 """welcome_home function does nothing but displays data to the home and works as an UI for the users"""
+@login_required(login_url = '/')
 def welcome_home(request):
     context = {}
     context['user']= request.user
@@ -93,7 +97,7 @@ def post_blog(request):
     else:
         return render(request, 'MYBLOG/post.html', context)
 
-"""View Profile Section"""
+"""View Profile Section andd edit profile section ----------------------------------------------------------------------------------------"""
 def view_profile(request):
     context = {}
     logged_in_user = request.user
