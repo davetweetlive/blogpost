@@ -6,14 +6,18 @@ GENDER = (
     ('female', 'FEMALE')
 )
 
+# Profile model has one to one relationship with the user model since every user can have only one profile
 class Profile(models.Model):
     username    = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
     profession  = models.CharField(max_length = 50)
     gender      = models.CharField(max_length = 10, choices = GENDER, default = 'Select')
+    profile_img = models.ImageField(blank = True, null = True)
 
     def __str__(self):
         return '{}'.format(self.username)
 
+
+# The post model has ForeignKey from Profile models because multiple posts can be posted by a user
 class Post(models.Model):
     author          = models.ForeignKey(Profile, on_delete = models.CASCADE)
     title           = models.CharField(max_length = 50)

@@ -10,3 +10,8 @@ class Sign_Up_Form(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+
+
+
+class Blog_Post_Form(forms.Form):
+    pass

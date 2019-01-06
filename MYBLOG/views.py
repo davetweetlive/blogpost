@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from . models import Profile, Post
 from django.urls import reverse
@@ -97,7 +97,8 @@ def post_blog(request):
     else:
         return render(request, 'MYBLOG/post.html', context)
 
-"""View Profile Section andd edit profile section ----------------------------------------------------------------------------------------"""
+"""View Profile Section and edit profile section ----------------------------------------------------------------------------------------"""
+"""This function is under construction make sure you don't mess up things"""
 def view_profile(request):
     context = {}
     logged_in_user = request.user
@@ -130,3 +131,11 @@ def display_blog(request):
     context = {}
     all_blogs = Post.objects.all()
     return {'post_row': all_blogs}
+
+# The below functon expend_post works on clicking view details link on each post and enlarges the post into full form. where
+# a reader can read the entire article and comment his views and share with friends and family
+def expand_post(request, post_id):
+    this_post = Post.objects.get(id = post_id)
+    print(this_post)
+    print(post_id)
+    return HttpResponse('Fnally redirecting!')
