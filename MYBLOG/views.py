@@ -5,9 +5,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
-from . models import Profile, Post
 from django.urls import reverse
+
 from datetime import datetime
+
+from . models import Profile, Post
+from . forms import Blog_Feed_Back
 
 """ index_login_signup function renders the index page and checks which submit (Login/Signup) is clicked if login clicked it calls login
     functon or it calls register function, """
@@ -136,6 +139,6 @@ def display_blog(request):
 # a reader can read the entire article and comment his views and share with friends and family
 def expand_post(request, post_id):
     this_post = Post.objects.get(id = post_id)
-    print(this_post)
-    print(post_id)
-    return HttpResponse('Fnally redirecting!')
+    form = Blog_Feed_Back()
+    context = {'post': this_post.article, 'title': this_post.title, 'published_on': this_post.publish_date, 'form': form}
+    return render(request, 'MYBLOG/expanded.html', context)

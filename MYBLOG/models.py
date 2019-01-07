@@ -28,3 +28,11 @@ class Post(models.Model):
 
     def __str__(self):
         return '{}'.format(self.title)
+
+
+class Comment(models.Model):
+    reader = models.ForeignKey(Profile, on_delete = models.CASCADE)
+    article = models.ManyToManyField(Post)
+    comment = models.TextField()
+    liked = models.BooleanField(default=False)
+    disliked = models.BooleanField(default=False)

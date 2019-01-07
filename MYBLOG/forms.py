@@ -15,3 +15,7 @@ class Sign_Up_Form(UserCreationForm):
 
 class Blog_Post_Form(forms.Form):
     pass
+
+
+class Blog_Feed_Back(forms.Form):
+    comment = forms.CharField(widget = forms.Textarea) 
