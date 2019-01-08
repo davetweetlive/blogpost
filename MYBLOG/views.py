@@ -54,6 +54,7 @@ def registration(request):
 
 """Declaration of login function which is called in signup function if the value of submit button is not 'signup_to then'"""
 def user_login(request):
+    context = {}
     username = request.POST['username']
     password = request.POST['password']
     user     = authenticate(request, username = username, password = password)
@@ -93,6 +94,7 @@ def post_blog(request):
         article         = request.POST.get('articleContent')
         author          = Profile.objects.get(username = active_user)
         publish_time    = datetime.now()
+
         publish         = Post(title = title, about = about, article = article, author = author, publish_date = publish_time)
         publish.save()
         context['message'] = 'Your Articles has been published'
@@ -132,7 +134,7 @@ def view_profile(request):
 """The function called display blog return blogs to the welcome home function where all the blogs posted by authors will be published """
 def display_blog(request):
     context = {}
-    all_blogs = Post.objects.all()
+    all_blogs = Post.objects.all().order_by('-publish_date')
     return {'post_row': all_blogs}
 
 # The below functon expend_post works on clicking view details link on each post and enlarges the post into full form. where
@@ -140,5 +142,8 @@ def display_blog(request):
 def expand_post(request, post_id):
     this_post = Post.objects.get(id = post_id)
     form = Blog_Feed_Back()
-    context = {'post': this_post.article, 'title': this_post.title, 'published_on': this_post.publish_date, 'form': form}
+    author = User.objects.get(username = this_post.author)
+    authors_full_name = author.first_name+ ' ' + author.last_name
+
+    context = {'post': this_post.article, 'title': this_post.title, 'published_on': this_post.publish_date, 'form': form, 'author': authors_full_name}
     return render(request, 'MYBLOG/expanded.html', context)

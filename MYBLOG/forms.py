@@ -18,4 +18,4 @@ class Blog_Post_Form(forms.Form):
 
 
 class Blog_Feed_Back(forms.Form):
-    comment = forms.CharField(widget = forms.Textarea) 
+    comment = forms.CharField(max_length=2000, widget = forms.Textarea(attrs={'rows': 4, 'cols': 40}), help_text='Write here your message!', label='') 
