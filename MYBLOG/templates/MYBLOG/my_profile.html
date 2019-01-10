@@ -1,0 +1,31 @@
+{% extends 'base_home.html' %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    {% block head %}
+    {% endblock %}
+  </head>
+  <body>
+    {% block body %}
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">Forum 2k</h1>
+        <p class="lead">An online forum for writers and columnists!</p>
+      </div>
+    </div>
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        {% for row in post_row %}
+        <div class="col-md-4">
+          <h2>{{row.title}}</h2>
+          <!-- <h4>{{row.author}}</h4> -->
+          <p>{{row.article|truncatechars:300 }}</p>
+          <p><a class="btn btn-secondary" href="{% url 'expand_post_function' row.id %}" role="button">View details &raquo;</a></p>
+        </div>
+        {%endfor%}
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>

@@ -107,27 +107,12 @@ def post_blog(request):
 def view_profile(request):
     context = {}
     logged_in_user = request.user
+    user_row = User.objects.get(username = logged_in_user)
+    full_name = user_row.first_name + ' ' + user_row.last_name
+
     if request.method == 'POST':
-        first_name = request.POST.get('fname')
-        last_name = request.POST.get('lname')
-        email_id = request.POST.get('emailId')
-        profession = request.POST.get('job')
-        sex = request.POST.get('gender')
-
-        user_row = User.objects.get(username = logged_in_user)
-        user_row.first_name = first_name
-        user_row.last_name = last_name
-        user_row.email = email_id
-        user_row.save()
-
-        try:
-            profile_row = Profile.objects.get(username = logged_in_user)
-            print(profile_row)
-        except:
-            profile_row = Profile.objects.create(username = logged_in_user, profession = profession,   gender = sex)
-            print(profile_row)
-            print(logged_in_user, first_name, last_name, email_id, profession, sex)
-
+        pass
+    context = {'user': logged_in_user, 'f_name': full_name}
     return render(request, 'MYBLOG/profile.html', context)
 
 
