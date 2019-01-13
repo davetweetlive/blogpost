@@ -159,8 +159,11 @@
 		<ul class="nav navbar-nav navbar-right ml-auto">
 			<li class="nav-item">
 				<!-- <a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Login</a> -->
-        <img src={% static "Myblogapp/photos/download.png" %} width="45px" height="45px">
-
+        {% if user.profile.profile_img.url %}
+          <img src='{{ user.profile.profile_img.url }}' width="45px" height="45px">
+        {% else %}
+          <img src={% static "Myblogapp/photos/download.png" %} width="45px" height="45px">
+        {%endif%}
 			</li>
       <li class="nav-item dropdown">
 				<a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">{{user}}<b class="caret"></b></a>

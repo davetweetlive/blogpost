@@ -109,10 +109,11 @@ def view_profile(request):
     logged_in_user = request.user
     user_row = User.objects.get(username = logged_in_user)
     full_name = user_row.first_name + ' ' + user_row.last_name
-
+    profile_row = Profile.objects.get(username = logged_in_user)
+    print(user_row.profile.profile_img.url)
     if request.method == 'POST':
         pass
-    context = {'user': logged_in_user, 'f_name': full_name}
+    context = {'user': user_row, 'full_name': full_name, 'profile_img':profile_row.profile_img}
     return render(request, 'MYBLOG/profile.html', context)
 
 

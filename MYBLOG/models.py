@@ -11,7 +11,8 @@ class Profile(models.Model):
     username    = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
     profession  = models.CharField(max_length = 50)
     gender      = models.CharField(max_length = 10, choices = GENDER, default = 'Select')
-    profile_img = models.ImageField(blank = True, null = True)
+    profile_img = models.ImageField(default = 'default.gpg', upload_to = 'profile_pics', blank = True, null = True)
+    website     = models.CharField(max_length = 50)
 
     def __str__(self):
         return '{}'.format(self.username)
@@ -25,6 +26,7 @@ class Post(models.Model):
     article         = models.TextField()
     publish_date    = models.DateTimeField(null = True)
     modified_date   = models.DateTimeField(null = True)
+    # article_img     = models.ImageField(default = 'default.gpg', upload_to = '_pics', blank = True, null = True)
 
     def __str__(self):
         return '{}'.format(self.title)
