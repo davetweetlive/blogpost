@@ -3,25 +3,16 @@
 <html lang="en" dir="ltr">
   <head>
     {% block head %}
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-    <style>
-
-    </style>
     {% endblock %}
   </head>
   <body>
     {% block body %}
-
       <div class="container ">
         <div class="row">
           <div class="col-sm-10"><h1>{{full_name}}</h1></div>
         </div>
         <div class="row">
           <div class="col-sm-3"><!--left col-->
-
-
             <div class="text-center">
               <img src="{{ user.profile.profile_img.url }}" class="avatar img-circle img-thumbnail" alt="avatar">
               <h6>Upload a different photo...</h6>
@@ -31,13 +22,12 @@
 
             <div class="panel panel-default">
               <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
-              <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
+              <div class="panel-body"><a href="{{website}}">My Website</a></div>
             </div>
 
 
             <ul class="list-group">
               <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
-              <li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
               <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
               <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
               <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
@@ -53,27 +43,25 @@
           </div><!--/col-3-->
           <div class="col-sm-9">
             <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#">Professional</a></li>
-              <li><a data-toggle="tab" href="Personal">Personal Info</a></li>
+              <li class="active"><a data-toggle="tab" href="#">Personal Info</a></li>
             </ul>
-
 
             <div class="tab-content">
               <div class="tab-pane active" id="home">
                 <hr>
                 <form class="form" action="" method="post" id="registrationForm">
+                  {% csrf_token %}
                   <div class="form-group">
-
                     <div class="col-xs-6">
                       <label for="first_name"><h4>First name</h4></label>
-                      <input type="text" class="form-control" name="first_name" id="first_name">
+                      <input type="text" class="form-control input_form" name="first_name" id="first_name" value="{{first_name}}">
                     </div>
                   </div>
                   <div class="form-group">
 
                     <div class="col-xs-6">
                       <label for="last_name"><h4>Last name</h4></label>
-                      <input type="text" class="form-control" name="last_name" id="last_name" value={{user.last_name}}>
+                      <input type="text" class="form-control input_form" name="last_name" id="last_name" value={{user.last_name}}>
                     </div>
                   </div>
 
@@ -81,64 +69,58 @@
 
                     <div class="col-xs-6">
                       <label for="phone"><h4>Profession</h4></label>
-                      <input type="text" class="form-control" name="Profession" id="job" value={{user_row.profession}}>
+                      <input type="text" class="form-control input_form" name="Profession" id="job" value={{job}}>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <div class="col-xs-6">
-                      <label for="mobile"><h4>Gender</h4></label>
-                      <input type="text" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
+                      <label for="mobile"><h4>Mobile</h4></label>
+                      <input type="text" class="form-control input_form" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
                     </div>
                   </div>
                   <div class="form-group">
 
                     <div class="col-xs-6">
                       <label for="email"><h4>Email</h4></label>
-                      <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
+                      <input type="email" class="form-control input_form" name="email" id="email" placeholder="you@email.com" title="enter your email.">
                     </div>
                   </div>
                   <div class="form-group">
 
                     <div class="col-xs-6">
                       <label for="email"><h4>Location</h4></label>
-                      <input type="email" class="form-control" id="location" placeholder="somewhere" title="enter a location">
-                    </div>
-                  </div>
-                  <div class="form-group">
-
-                    <div class="col-xs-6">
-                      <label for="password"><h4>Password</h4></label>
-                      <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
-                    </div>
-                  </div>
-                  <div class="form-group">
-
-                    <div class="col-xs-6">
-                      <label for="password2"><h4>Verify</h4></label>
-                      <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
+                      <input type="text" class="form-control input_form" name="location" id="location" placeholder="somewhere" title="enter a location">
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="col-xs-12">
                       <br>
                       <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                      <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                      <button class="btn btn-lg btn-warning" type="reset" id="edit_button"><i class="fa fa-pencil-square-o"></i> Edit</button>
                     </div>
                   </div>
                 </form>
-
                 <hr>
-
               </div><!--/tab-pane-->
-
           </div><!--/tab-content-->
-
         </div><!--/col-9-->
       </div><!--/row-->
+      <script type="text/javascript">
+        var input_box = document.getElementsByClassName('input_form');
+        for(var i=0; i< input_box.length; i++){
+          input_box[i].disabled = true;
+        }
+
+        //Edit button enables to edit
+        document.querySelector('#edit_button').addEventListener('click', function(){
+          var input_box = document.getElementsByClassName('input_form');
+          for(var i=0; i< input_box.length; i++){
+            input_box[i].disabled = false;
+          }
+        })
+      </script>
     {% endblock %}
-    <script type="text/javascript">
-      var fisrt_name = "{{full_name}}"
-    </script>
+
   </body>
 </html>

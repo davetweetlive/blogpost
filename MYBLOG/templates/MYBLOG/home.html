@@ -3,6 +3,7 @@
 <html lang="en" dir="ltr">
   <head>
     {% block head %}
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
     {% endblock %}
   </head>
   <body>
@@ -15,16 +16,17 @@
     </div>
     <div class="container">
       <!-- Example row of columns -->
-      <div class="row">
-        {% for row in post_row %}
-        <div class="col-md-4">
-          <h2>{{row.title}}</h2>
-          <!-- <h4>{{row.author}}</h4> -->
-          <p>{{row.article|truncatechars:300 }}</p>
-          <p><a class="btn btn-secondary" href="{% url 'expand_post_function' row.id %}" role="button">View details &raquo;</a></p>
-        </div>
-        {%endfor%}
+        <div class="row">
+          {% for row in post_row %}
+         <div class="col-lg-4">
+           <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+           <h2>{{row.title}}</h2>
+           <p>{{row.article|truncatechars:300 }}</p>
+           <p><a class="btn btn-secondary" href="{% url 'expand_post_function' row.id %}" role="button">View details »</a></p>
+         </div><!-- /.col-lg-4 -->
+        {% endfor %}
       </div>
+
     </div>
     {% endblock %}
   </body>

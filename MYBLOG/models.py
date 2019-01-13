@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 GENDER = (
     ('male', 'MALE'),
@@ -11,11 +14,22 @@ class Profile(models.Model):
     username    = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
     profession  = models.CharField(max_length = 50)
     gender      = models.CharField(max_length = 10, choices = GENDER, default = 'Select')
-    profile_img = models.ImageField(default = 'default.gpg', upload_to = 'profile_pics', blank = True, null = True)
-    website     = models.CharField(max_length = 50)
+    profile_img = models.ImageField(default = 'default.png', upload_to = 'profile_pics', blank = True, null = True)
+    website     = models.CharField(max_length = 50, null=True)
+    mobile      = models.IntegerField(null = True)
+    location    = models.CharField(max_length = 30, null = True,)
 
     def __str__(self):
         return '{}'.format(self.username)
+
+
+# The following function user_is_created creates an user's profile with default data when a user does registration
+@receiver(post_save, sender=User)
+def user_is_created(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(username=instance)
+    else:
+        instance.profile.save()
 
 
 # The post model has ForeignKey from Profile models because multiple posts can be posted by a user

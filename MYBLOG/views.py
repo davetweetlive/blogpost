@@ -107,13 +107,35 @@ def post_blog(request):
 def view_profile(request):
     context = {}
     logged_in_user = request.user
+
     user_row = User.objects.get(username = logged_in_user)
     full_name = user_row.first_name + ' ' + user_row.last_name
-    profile_row = Profile.objects.get(username = logged_in_user)
-    print(user_row.profile.profile_img.url)
+    profile_row = Profile.objects.get(username = user_row.id)
+
     if request.method == 'POST':
-        pass
-    context = {'user': user_row, 'full_name': full_name, 'profile_img':profile_row.profile_img}
+        fname       = request.POST.get('first_name')
+        lname       = request.POST.get('last_name')
+        profession  = request.POST.get('Profession')
+        mobile      = request.POST.get('mobile')
+        email       = request.POST.get('email')
+        location    = request.POST.get('location')
+        user_row.first_name = fname
+        user_row.last_name = lname
+        user_row.profile.profession = profession
+        user_row.profile.mobile = mobile
+        user_row.profile.location = location
+        user_row.save()
+
+        print(fname, lname,profession,mobile,email,location)
+    context = {
+        'user': user_row,
+        'full_name': full_name,
+        'profile_img':profile_row.profile_img,
+        'website': profile_row.website,
+        'first_name': user_row.first_name,
+        'job': user_row.profile.profession
+    }
+    print(context['job'])
     return render(request, 'MYBLOG/profile.html', context)
 
 
@@ -132,4 +154,4 @@ def expand_post(request, post_id):
     authors_full_name = author.first_name+ ' ' + author.last_name
 
     context = {'post': this_post.article, 'title': this_post.title, 'published_on': this_post.publish_date, 'form': form, 'author': authors_full_name}
-    return render(request, 'MYBLOG/expanded.html', context)
+    return render(request, 'MYBLOG/expanded_post.html', context)
