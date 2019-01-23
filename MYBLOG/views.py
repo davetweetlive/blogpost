@@ -125,6 +125,8 @@ def view_profile(request):
         user_row.profile.mobile = mobile
         user_row.profile.location = location
         user_row.save()
+
+        print(fname, lname,profession,mobile,email,location)
     context = {
         'user': user_row,
         'full_name': full_name,
